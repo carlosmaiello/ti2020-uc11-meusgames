@@ -9,10 +9,10 @@
     </q-header>
 
     <q-footer>
-      <q-tabs class="text-primary bg-white">
+      <q-tabs>
         <q-route-tab icon="home" label="Início" to="/" />
-        <q-route-tab icon="fas fa-gamepad" label="Games" to="/games" />
-        <q-route-tab icon="fas fa-user-circle" label="Perfil" to="/perfil" />
+        <q-route-tab icon="videogame_asset" label="Games" to="/games" />
+        <q-route-tab icon="person" label="Perfil" to="/perfil" />
       </q-tabs>
     </q-footer>
 

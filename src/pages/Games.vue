@@ -2,7 +2,7 @@
   <q-page padding>
     <h2 class="q-mt-md">Games</h2>
     <q-list bordered separator>
-      <q-item v-for="game in games" :key="game.nome">
+      <q-item v-for="game in games" :key="game.nome" to="/games/detalhes">
         <q-item-section>
           <q-item-label>{{ game.nome }}</q-item-label>
           <q-item-label caption>{{ game.categoria }}</q-item-label>
@@ -26,7 +26,7 @@ export default {
   data() {
     return {
       games: [
-        {
+       { 
           nome: "Game 1",
           categoria: "Corrida",
           dataLancamento: "2020-04-01",
