@@ -9,6 +9,8 @@
         </q-item-section>
         <q-item-section>
           <q-item-label>Horas: {{ game.horasJogadas }}</q-item-label>
+        </q-item-section>
+        <q-item-section>
           <q-item-label v-if="game.concluido">Concluido</q-item-label>
         </q-item-section>
       </q-item>
@@ -26,7 +28,7 @@ export default {
   data() {
     return {
       games: [
-       { 
+        {
           nome: "Game 1",
           categoria: "Corrida",
           dataLancamento: "2020-04-01",
