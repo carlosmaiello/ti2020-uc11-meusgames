@@ -1,5 +1,11 @@
 <template>
   <q-page padding>
+    <q-header>
+      <q-toolbar>
+        <q-btn flat round dense icon="arrow_back" to="/games" />
+      </q-toolbar>
+    </q-header>
+
     <h2>{{ game.nome }}</h2>
     <p><b>Categoria: </b> {{ game.categoria }}</p>
     <p><b>Lançamento: </b> {{ game.dataLancamento }}</p>
@@ -19,19 +25,16 @@
 export default {
   // name: 'PageName',
   data() {
-    return {
-      game: {
-        nome: "Game 1",
-        categoria: "Corrida",
-        dataLancamento: "2020-04-01",
-        preco: 219.99,
-        horasJogadas: 1000,
-        concluido: false,
-        dataUltimoJogo: "2021-06-01",
-        avaliacao: 3,
-        comentario: "Jogo bom"
-      }
-    };
+    return {};
+  },
+  computed: {
+    game() {
+      return this.$store.state.games.game;
+    }
+  },
+  mounted() {
+    var id = this.$route.params.id;
+    this.$store.dispatch("games/carregar", id);
   }
 };
 </script>
