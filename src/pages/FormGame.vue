@@ -1,6 +1,12 @@
 <template>
   <q-page padding>
-    <h2>Novo Game</h2>
+     <q-header>
+      <q-toolbar>
+        <q-btn flat round dense icon="arrow_back" to="/games" />
+      </q-toolbar>
+    </q-header>
+
+    <h2 class="q-mt-md">Novo Game</h2>
       <q-form class="q-gutter-sm">
         <q-input label="Nome" v-model="form.nome" />
         <q-select label="Categoria" :options="['Ação', 'Aventura', 'Corrida']" v-model="form.categoria" />

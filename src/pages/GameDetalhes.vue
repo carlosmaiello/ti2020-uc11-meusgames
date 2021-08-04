@@ -6,7 +6,7 @@
       </q-toolbar>
     </q-header>
 
-    <h2>{{ game.nome }}</h2>
+    <h2 class="q-mt-md">{{ game.nome }}</h2>
     <p><b>Categoria: </b> {{ game.categoria }}</p>
     <p><b>Lançamento: </b> {{ game.dataLancamento }}</p>
     <p><b>Preço: </b> {{ game.preco }}</p>
