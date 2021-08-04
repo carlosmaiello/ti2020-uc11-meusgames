@@ -10,3 +10,8 @@ export function setGames(state, games) {
 export function setGame(state, game) {
     state.game = game;
 }
+
+export function addGame(state, game) {
+    game.id = 10;
+    state.games.push(game);
+}

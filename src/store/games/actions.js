@@ -7,3 +7,7 @@ export function carregar({state, commit}, id) {
     var game = state.games.filter(g => g.id == id)[0];
     commit('setGame', game);
 }
+
+export function inserir({commit}, form) {
+    commit('addGame', form);
+}

@@ -14,7 +14,7 @@
         <q-rating size="2em" :max="5" color="primary" v-model="form.avaliacao" />  
         <q-input type="textarea" label="Comentário" v-model="form.comentario" />
         <div class="q-my-lg">
-          <q-btn label="Cadastrar" color="primary" class="full-width" size="lg" />
+          <q-btn label="Cadastrar" color="primary" class="full-width" size="lg" @click="enviarForm()" />
         </div>
       </q-form>
   </q-page>
@@ -37,6 +37,12 @@ export default {
         comentario: "Jogo bom"
       }
     };
+  },
+  methods: {
+    enviarForm() {
+      this.$store.dispatch('games/inserir', this.form);
+      this.$router.push("/games");
+    }
   }
 }
 </script>
