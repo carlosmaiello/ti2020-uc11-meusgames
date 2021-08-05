@@ -11,3 +11,7 @@ export function carregar({state, commit}, id) {
 export function inserir({commit}, form) {
     commit('addGame', form);
 }
+
+export function alterar({commit}, form) {
+    commit('updateGame', form);
+}

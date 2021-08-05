@@ -14,6 +14,7 @@ const routes = [
     component: () => import('layouts/PageLayout.vue'),
     children: [
       { path: 'novo', component: () => import('pages/FormGame.vue') },
+      { path: ':id/edit', component: () => import('pages/FormGame.vue') },
       { path: ':id', component: () => import('pages/GameDetalhes.vue') },
     ]
   },

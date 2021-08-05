@@ -2,11 +2,14 @@
   <q-page padding>
      <q-header>
       <q-toolbar>
-        <q-btn flat round dense icon="arrow_back" to="/games" />
+        <q-btn flat round dense icon="arrow_back" :to="`/games/${$route.params.id}`" v-if="isEditar" />
+        <q-btn flat round dense icon="arrow_back" to="/games" v-else />
       </q-toolbar>
     </q-header>
 
-    <h2 class="q-mt-md">Novo Game</h2>
+    <h2 class="q-mt-md" v-if="isEditar">Alterar Game</h2>
+    <h2 class="q-mt-md" v-else>Novo Game</h2>
+
       <q-form class="q-gutter-sm">
         <q-input label="Nome" v-model="form.nome" />
         <q-select label="Categoria" :options="['Ação', 'Aventura', 'Corrida']" v-model="form.categoria" />
@@ -20,7 +23,8 @@
         <q-rating size="2em" :max="5" color="primary" v-model="form.avaliacao" />  
         <q-input type="textarea" label="Comentário" v-model="form.comentario" />
         <div class="q-my-lg">
-          <q-btn label="Cadastrar" color="primary" class="full-width" size="lg" @click="enviarForm()" />
+          <q-btn label="Alterar" color="primary" class="full-width" size="lg" @click="enviarForm()" v-if="isEditar" />
+          <q-btn label="Cadastrar" color="primary" class="full-width" size="lg" @click="enviarForm()" v-else />
         </div>
       </q-form>
   </q-page>
@@ -46,8 +50,25 @@ export default {
   },
   methods: {
     enviarForm() {
-      this.$store.dispatch('games/inserir', this.form);
-      this.$router.push("/games");
+      if (this.isEditar) {
+        this.$store.dispatch('games/alterar', { id: this.$route.params.id, ...this.form });
+        this.$router.push(`/games/${this.$route.params.id}`);
+      }
+      else {
+        this.$store.dispatch('games/inserir', this.form);
+        this.$router.push("/games");
+      }
+    }
+  },
+  computed: {
+    isEditar () {
+      return this.$route.params.id;
+    }
+  },
+  mounted () {
+    if (this.isEditar) {
+      this.$store.dispatch('games/carregar', this.$route.params.id);
+      this.form = { ...this.$store.state.games.game };
     }
   }
 }

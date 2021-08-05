@@ -3,6 +3,8 @@
     <q-header>
       <q-toolbar>
         <q-btn flat round dense icon="arrow_back" to="/games" />
+         <q-toolbar-title></q-toolbar-title>
+        <q-btn flat round dense icon="edit" :to="`/games/${game.id}/edit`" />
       </q-toolbar>
     </q-header>
 
