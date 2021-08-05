@@ -36,15 +36,15 @@ export default {
   data () {
     return {
       form: {
-        nome: "Game 1",
+        nome: "",
         categoria: "Corrida",
-        dataLancamento: "2020-04-01",
-        preco: 219.99,
-        horasJogadas: 1000,
+        dataLancamento: "",
+        preco: 0,
+        horasJogadas: 0,
         concluido: false,
-        dataUltimoJogo: "2021-06-01",
-        avaliacao: 2,
-        comentario: "Jogo bom"
+        dataUltimoJogo: "",
+        avaliacao: 0,
+        comentario: ""
       }
     };
   },
