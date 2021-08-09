@@ -7,7 +7,8 @@ const routes = [
       { path: '', component: () => import('pages/Index.vue') },
       { path: 'games', component: () => import('pages/Games.vue') },
       { path: 'perfil', component: () => import('pages/Perfil.vue') },
-    ]
+    ],
+    meta: { requiresAuth: true }
   },
   {
     path: '/games',
@@ -16,6 +17,14 @@ const routes = [
       { path: 'novo', component: () => import('pages/FormGame.vue') },
       { path: ':id/edit', component: () => import('pages/FormGame.vue') },
       { path: ':id', component: () => import('pages/GameDetalhes.vue') },
+    ],
+    meta: { requiresAuth: true }
+  },
+  {
+    path: '/login',
+    component: () => import('layouts/LoginLayout.vue'),
+    children: [
+      { path: '', component: () => import('pages/Login.vue') },
     ]
   },
 
