@@ -19,7 +19,7 @@ api.interceptors.response.use(
       //   type: "negative",
       //   message: "É necessário efetuar o login"
       // });
-      //router.push("/login");
+      router.push("/login");
       return Promise.reject(error);
     }
 

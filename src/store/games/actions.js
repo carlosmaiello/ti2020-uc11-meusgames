@@ -3,15 +3,45 @@ export function someAction (context) {
 }
 */
 
-export function carregar({state, commit}, id) {
-    var game = state.games.filter(g => g.id == id)[0];
-    commit('setGame', game);
+import { api } from "boot/axios";
+
+export function listar({ state, commit }) {
+  return api
+    .get("/games/")
+    .then(r => {
+      commit("setGames", r.data);
+    })
+    .catch(error => {
+      commit("setGames", []);
+    });
 }
 
-export function inserir({commit}, form) {
-    commit('addGame', form);
+export function carregar({ commit }, id) {
+  return api
+    .get(`/games/${id}/`)
+    .then(r => {
+      commit("setGame", r.data);
+    })
+    .catch(error => {
+      commit("setGame", null);
+    });
 }
 
-export function alterar({commit}, form) {
-    commit('updateGame', form);
+export function inserir({ commit }, dados) {
+  return api.post(`/games/`, dados);
+}
+
+export function alterar({ commit }, { id, dados }) {
+  return api.put(`/games/${id}/`, dados);
+}
+
+export function categorias({ state, commit }) {
+  return api
+    .get("/categorias/")
+    .then(r => {
+      commit("setCategorias", r.data);
+    })
+    .catch(error => {
+      commit("setCategorias", []);
+    });
 }

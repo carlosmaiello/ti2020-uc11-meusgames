@@ -5,7 +5,7 @@
       <q-item v-for="game in games" :key="game.id" :to="`/games/${game.id}`">
         <q-item-section>
           <q-item-label>{{ game.nome }}</q-item-label>
-          <q-item-label caption>{{ game.categoria }}</q-item-label>
+          <q-item-label caption>{{ game.categoria.nome }}</q-item-label>
         </q-item-section>
         <q-item-section>
           <q-item-label>Horas: {{ game.horasJogadas }}</q-item-label>
@@ -33,6 +33,12 @@ export default {
     games () {
       return this.$store.state.games.games;
     }
+  },
+  created () {
+    this.$q.loadingBar.start();
+    this.$store.dispatch('games/listar').then(() => {
+      this.$q.loadingBar.stop();
+    });
   }
 };
 </script>
