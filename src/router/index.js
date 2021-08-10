@@ -1,3 +1,4 @@
+import { Notify } from "quasar";
 import Vue from "vue";
 import VueRouter from "vue-router";
 
@@ -14,7 +15,7 @@ Vue.use(VueRouter);
  * with the Router instance.
  */
 
-export default function(/* { store, ssrContext } */) {
+export default function({ store }) {
   const Router = new VueRouter({
     scrollBehavior: () => ({ x: 0, y: 0 }),
     routes,
@@ -27,17 +28,23 @@ export default function(/* { store, ssrContext } */) {
   });
 
   Router.beforeEach((to, from, next) => {
-    if (to.matched.some(route => route.meta.requiresAuth) && !isAuthenticated()) {
-      next("/login");
+    console.log('Router.beforeEach');
+
+    if (to.matched.some(route => route.meta.requiresAuth) && !store.getters['users/isLogged']) {
+
+      store.dispatch('users/checkLogin').then(r => {
+        next();
+      }).catch(error => {
+        Notify.create({
+          type: "negative",
+          message: "É necessário efetuar o login"
+        });
+        next("/login");
+        });
     } else {
       next();
     }
   });
-
-  function isAuthenticated() {
-    // returns true or false
-    return true;
-  }
 
   return Router;
 }

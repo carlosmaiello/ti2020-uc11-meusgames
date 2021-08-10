@@ -1,5 +1,8 @@
 import Vue from "vue";
 import axios from "axios";
+import { Notify } from "quasar";
+import handleDates from "src/services/handleDates";
+import router from "src/router";
 
 Vue.prototype.$axios = axios;
 
@@ -12,11 +15,11 @@ api.interceptors.response.use(
   },
   function(error) {
     if (error.response?.status == 401) {
-      Notify.create({
-        type: "negative",
-        message: "É necessário efetuar o login"
-      });
-      router.push("/login/entrar");
+      // Notify.create({
+      //   type: "negative",
+      //   message: "É necessário efetuar o login"
+      // });
+      //router.push("/login");
       return Promise.reject(error);
     }
 
