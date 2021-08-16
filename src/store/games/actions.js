@@ -3,6 +3,14 @@ export function someAction (context) {
 }
 */
 
+import { api } from '../../boot/axios';
+
+export function listar({state, commit}) {
+    return api.get("/games/").then(r => {
+        commit("setGames", r.data);
+    });
+}
+
 export function carregar({state, commit}, id) {
     var game = state.games.filter(g => g.id == id)[0];
     commit('setGame', game);

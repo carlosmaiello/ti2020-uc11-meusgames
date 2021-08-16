@@ -33,6 +33,9 @@ export default {
     games () {
       return this.$store.state.games.games;
     }
+  },
+  mounted () {
+    this.$store.dispatch("games/listar");
   }
 };
 </script>
