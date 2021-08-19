@@ -3,7 +3,7 @@ export function someMutation (state) {
 }
 */
 
-import { api } from "src/boot/axios";
+import { api } from "boot/axios";
 
 export function setToken(state, token) {
     state.token = token;

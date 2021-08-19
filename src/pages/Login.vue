@@ -1,8 +1,8 @@
 <template>
   <q-page padding class="flex justify-center content-center">
     <q-form class="q-gutter-md">
-      <q-input label="E-mail" type="email" />
-      <q-input label="Senha" type="password" />
+      <q-input label="Usuário" v-model="form.username" />
+      <q-input label="Senha" type="password" v-model="form.password" />
       <div>
         <q-btn
           label="Entrar"
@@ -18,12 +18,23 @@
 <script>
 export default {
   // name: 'PageName',
+  data () {
+    return {
+      form: {
+        username: '',
+        password: ''
+      }
+    }
+  },
   methods: {
     logar() {
-      this.$api
-        .post("/login/", { username: "usuario", password: "123" })
+      this.$store
+        .dispatch("usuarios/logar", this.form)
         .then(r => {
-          console.log(r);
+          this.$router.push("/");
+        })
+        .catch(erro => {
+          alert(erro);
         });
     }
   }

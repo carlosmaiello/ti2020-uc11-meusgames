@@ -3,10 +3,30 @@ export function someAction (context) {
 }
 */
 
-import { axios } from "src/boot/axios";
+import { api } from "boot/axios";
+const storage = window.localStorage;
 
 export function logar({ commit }, { username, password }) {
-    return axios.post("/login/", { username, password }).then(r => {
-        commit("setToken", r.data.token);
-    });
+  return api.post("/login/", { username, password }).then(r => {
+    commit("setToken", r.data.token);
+    storage.setItem("token", r.data.token);
+  });
+}
+
+export function me({ commit }) {
+  return api.get("/me/").then(r => {
+    commit("setUsuario", r.data);
+    return r;
+  });
+}
+
+export function carregarToken({ commit, dispatch }) {
+  var token = storage.getItem("token");
+  commit("setToken", token);
+
+  return dispatch("me").catch(error => {
+    console.log("error");
+    commit("setToken", null);
+    return error;
+  });
 }
