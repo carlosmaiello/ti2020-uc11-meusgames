@@ -36,3 +36,8 @@ export function carregarToken({ commit, dispatch }) {
     return error;
   });
 }
+
+export function sair({ commit }) {
+  commit("setToken", null);
+  storage.removeItem("token");
+}
