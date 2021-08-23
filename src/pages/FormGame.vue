@@ -12,7 +12,7 @@
 
       <q-form class="q-gutter-sm">
         <q-input label="Nome" v-model="form.nome" />
-        <q-select label="Categoria" :options="['Ação', 'Aventura', 'Corrida']" v-model="form.categoria" />
+        <q-select label="Categoria" :options="categorias" v-model="form.categoria" option-label="nome" option-value="id" />
         <q-input label="Data de Lançamento" mask="##/##/####" fill-mask="_" v-model="form.dataLancamento" />
         <q-input label="Preço" mask="#.##" fill-mask="_" reverse-fill-mask v-model="form.preco" />
         <h6 class="q-mt-lg q-mb-none">Minhas Partidas</h6>
@@ -63,6 +63,9 @@ export default {
   computed: {
     isEditar () {
       return this.$route.params.id;
+    },
+    categorias () {
+      return this.$store.state.games.categorias;
     }
   },
   mounted () {

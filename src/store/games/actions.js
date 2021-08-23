@@ -23,3 +23,9 @@ export function inserir({commit}, form) {
 export function alterar({commit}, form) {
     commit('updateGame', form);
 }
+
+export function listarCategorias({commit}) {
+    return api.get('/categorias/').then(r => {
+        commit('setCategorias', r.data);
+    })
+}

@@ -1,6 +1,7 @@
 export default function() {
   return {
     games: [],
-    game: null
+    game: null,
+    categorias: []
   };
 }

@@ -28,3 +28,7 @@ export function updateGame(state, game) {
   state.games.splice(index, 1);
   state.games.push(game);
 }
+
+export function setCategorias(state, categorias) {
+  state.categorias = categorias;
+}
