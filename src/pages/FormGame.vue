@@ -81,19 +81,21 @@
 
 <script>
 function dataENParaBr(data) {
-  var dia = data.substring(8, 10);
-  var mes = data.substring(5, 7);
-  var ano = data.substring(0, 4);
-
-  return `${dia}/${mes}/${ano}`;
+  if (data) {
+    var dia = data.substring(8, 10);
+    var mes = data.substring(5, 7);
+    var ano = data.substring(0, 4);
+    return `${dia}/${mes}/${ano}`;
+  }
 }
 
 function dataBrParaEn(data) {
-  var dia = data.substring(0, 2);
-  var mes = data.substring(3, 5);
-  var ano = data.substring(6, 10);
-
-  return `${ano}-${mes}-${dia}`;
+  if (data) {
+    var dia = data.substring(0, 2);
+    var mes = data.substring(3, 5);
+    var ano = data.substring(6, 10);
+    return `${ano}-${mes}-${dia}`;
+  }
 }
 
 export default {
@@ -116,17 +118,36 @@ export default {
   methods: {
     enviarForm() {
       if (this.isEditar) {
-
         var dados = {
           id: this.$route.params.id,
-          ...this.form,
+          ...this.form
         };
 
         dados.dataLancamento = dataBrParaEn(dados.dataLancamento);
         dados.dataUltimoJogo = dataBrParaEn(dados.dataUltimoJogo);
 
-        this.$store.dispatch("games/alterar", dados);
-        this.$router.push(`/games/${this.$route.params.id}`);
+        this.$store
+          .dispatch("games/alterar", dados)
+          .then(resp => {
+            this.$q.notify({
+              message: "Alterado com sucesso!",
+              color: "positive"
+            });
+            this.$router.push(`/games/${this.$route.params.id}`);
+          })
+          .catch(erro => {
+
+            var mensagens = erro.response.data;
+            for (var campo in mensagens) {
+              for (var msg in mensagens[campo]) {
+                this.$q.notify({
+                  message: `Erro ${campo}: ${mensagens[campo][msg]}`,
+                  color: "negative"
+                });
+              }
+            }
+
+          });
       } else {
         this.$store.dispatch("games/inserir", this.form);
         this.$router.push("/games");
