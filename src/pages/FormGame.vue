@@ -152,6 +152,7 @@ export default {
         };
         dados.dataLancamento = dataBrParaEn(dados.dataLancamento);
         dados.dataUltimoJogo = dataBrParaEn(dados.dataUltimoJogo);
+        dados.categoria_id = dados.categoria.id;
 
         this.$store
           .dispatch("games/inserir", dados)
