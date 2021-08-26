@@ -136,7 +136,6 @@ export default {
             this.$router.push(`/games/${this.$route.params.id}`);
           })
           .catch(erro => {
-
             var mensagens = erro.response.data;
             for (var campo in mensagens) {
               for (var msg in mensagens[campo]) {
@@ -146,11 +145,34 @@ export default {
                 });
               }
             }
-
           });
       } else {
-        this.$store.dispatch("games/inserir", this.form);
-        this.$router.push("/games");
+        var dados = {
+          ...this.form
+        };
+        dados.dataLancamento = dataBrParaEn(dados.dataLancamento);
+        dados.dataUltimoJogo = dataBrParaEn(dados.dataUltimoJogo);
+
+        this.$store
+          .dispatch("games/inserir", dados)
+          .then(resp => {
+            this.$q.notify({
+              message: "Inserido com sucesso!",
+              color: "positive"
+            });
+            this.$router.push('/games/');
+          })
+          .catch(erro => {
+            var mensagens = erro.response.data;
+            for (var campo in mensagens) {
+              for (var msg in mensagens[campo]) {
+                this.$q.notify({
+                  message: `Erro ${campo}: ${mensagens[campo][msg]}`,
+                  color: "negative"
+                });
+              }
+            }
+          });
       }
     }
   },
